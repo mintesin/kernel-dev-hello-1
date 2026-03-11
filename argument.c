@@ -1,0 +1,71 @@
+/*
+ *argument.c  Demonestrate command line argument  passing to a  module.
+ */ 
+#include <linux/init.h>
+#include <linux/kernel.h> /* for ARRAY_SIZE()*/
+#include <linux/printk.h>
+#include <linux/module.h>
+#include <linux/stat.h> 
+#include <linux/moduleparam.h> 
+
+
+MODULE_LICENSE("GPL");
+/*
+ *Decalaration is  always static datatype variablename = value;;
+ */
+static short int myshort = 1;
+static int myint  = 420;
+static long int mylong  =  99999;
+static char *mystring =  "blahh";
+static int myintarray[3]  = {420 , 420};
+static int arr_argc = 0;
+
+/*
+ *module_param(variablename, data_type).
+ *The first param is the parameters name.
+ *The  second param is the datatype.
+ *The final one the permisssion 
+ * for exposing  parameters in sysfs (if non-zero) at a later stage.
+ */
+
+module_param(myshort,short,S_IRUSR|S_IWUSR|S_IRGRP|S_IWGRP);
+MODULE_PARM_DESC(myshort,"A short integer");
+module_param(myint,int, S_IRUSR|S_IWUSR|S_IRGRP|S_IWGRP);
+MODULE_PARM_DESC(myint,"My integer");
+module_param(mylong,long, S_IRUSR);
+MODULE_PARM_DESC(mylong,"My long integer.");
+module_param(mystring, charp,S_IRUSR | S_IRGRP);
+MODULE_PARM_DESC(mystring, "The string I wanted to write");
+
+/*
+ *module_param_array(name,type,num,perm)
+ * The first argument is the parameters name.
+ * The second param is the datatype of the elements of the array.
+ * The third argument is  pointer to the  variable  that will store the number of 
+ * elements of the array initialaized by the user at moduel loading time.
+ * The fourth ergument is the permission bits.
+ */ 
+
+module_param_array(myintarray,int,&arr_argc,0000);
+MODULE_PARM_DESC(myintarrayy,"An array module is here.");
+
+static int __init module_entry(void){
+		int i;
+		pr_info("Hello wordl\n=========================\n");
+		pr_info("myshort is a short integer: %hd\n",myshort);
+		pr_info("my int is an integer %d\n",myint);
+		pr_info("mylong is a long integer:  %ld \n",mylong);
+		pr_info("mystring is a string: %s \n",mystring);
+
+		for (i =0; i<ARRAY_SIZE(myintarray);i++)
+			pr_info("myintarray[%d] = %d\n",i,myintarray[i]);
+		pr_info("got %d arguments for myintarray \n",arr_argc);
+		return 0;
+
+}
+static void __exit module_exit_func(void){
+   pr_info("Goodbye, world \n");
+}
+
+module_init(module_entry);
+module_exit(module_exit_func);
