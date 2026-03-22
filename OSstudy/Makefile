@@ -1,4 +1,7 @@
 obj-m += intro_module.o
+obj-m += info_timer.o
+obj-m += hello_procs.o 
+obj-m += assignment_one.o
 
 PWD := $(CURDIR)
 all:

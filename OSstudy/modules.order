@@ -1,1 +1,4 @@
 intro_module.o
+info_timer.o
+hello_procs.o
+assignment_one.o

@@ -1,1 +1,1 @@
-savedcmd_intro_module.ko := ld -r -m elf_x86_64 -z noexecstack --no-warn-rwx-segments --build-id=sha1  -T /usr/src/linux-headers-6.17.0-14-generic/scripts/module.lds -o intro_module.ko intro_module.o intro_module.mod.o .module-common.o
+savedcmd_intro_module.ko := ld -r -m elf_x86_64 -z noexecstack --no-warn-rwx-segments --build-id=sha1  -T /usr/src/linux-headers-6.17.0-19-generic/scripts/module.lds -o intro_module.ko intro_module.o intro_module.mod.o .module-common.o
