@@ -1,0 +1,12 @@
+<parameter name="content"># TODO: Complete elapsed_timeshmmemory.c (Shared Memory Timing)
+
+## Steps:
+1. [ ] Add missing includes and argc check.
+2. [ ] Fix child: sprintf start to ptr, execvp(argv[1], argv+1).
+3. [ ] Parent: reuse ptr, waitpid, get end time, parse start=strtol(ptr), compute/print elapsed microseconds.
+4. [ ] Add cleanup: munmap, close, shm_unlink.
+5. [ ] Add error checks for mmap/shm_open.
+6. [ ] Compile: gcc elapsed_timeshmmemory.c -o elapsed_shm -lrt
+7. [ ] Test: ./elapsed_shm ls -l
+
+Current progress: Analysis complete, ready for code fixes.</parameter>
